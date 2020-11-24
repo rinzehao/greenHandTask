@@ -247,14 +247,14 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 				winner = "Alice"
 			} else if cardNumBob[len(cardNumBob)/2] == cardNumAlice[len(cardNumAlice)/2] {
 				a := cardNumBob[len(cardNumBob)/2]
-				for i := 0; i < len(cardNumAlice)-1; i++ { //可以改为不遍历，只比较首尾两元素
+				for i := 0; i < len(cardNumAlice); i++ { //可以改为不遍历，只比较首尾两元素
 					if cardNumAlice[i] != a {
 						a = cardNumAlice[i]
 						break
 					}
 				}
 				b := cardNumBob[len(cardNumBob)/2]
-				for i := 0; i < len(cardNumBob)-1; i++ {
+				for i := 0; i < len(cardNumBob); i++ {
 					if cardNumBob[i] != b {
 						b = cardNumBob[i]
 						break
@@ -306,10 +306,10 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 		case 5:
 			asum := 0
 			bsum := 0
-			for i := 0; i < len(cardNumAlice)-1; i++ {
+			for i := 0; i < len(cardNumAlice); i++ {
 				asum += cardNumAlice[i]
 			}
-			for i := 0; i < len(cardNumBob)-1; i++ {
+			for i := 0; i < len(cardNumBob); i++ {
 				bsum += cardNumBob[i]
 			}
 			if asum > bsum {
@@ -317,7 +317,7 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 			} else if asum < bsum {
 				winner = "Bob"
 			} else if asum == bsum {
-				for i := 0; i < len(cardNumBob)-1; i++ {
+				for i := 0; i < len(cardNumBob); i++ {
 					if cardNumAlice[len(cardNumAlice)-1-i] == cardNumBob[len(cardNumBob)-1-i] {
 						winner = "平手"
 						continue
@@ -350,13 +350,13 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 			} else if aNumOfThree == bNumOfThree {
 				var twoOfA = [2]int{0, 0}
 				var twoOfB = [2]int{0, 0}
-				for i, j := 0, 0; i < len(cardNumAlice)-1; i++ {
+				for i, j := 0, 0; i < len(cardNumAlice); i++ {
 					if cardNumAlice[i] != cardNumAlice[middle] && cardNumAlice[i] != twoOfA[j] {
 						twoOfA[j] = cardNumAlice[i]
 						j++
 					}
 				}
-				for i, j := 0, 0; i < len(cardNumBob)-1; i++ {
+				for i, j := 0, 0; i < len(cardNumBob); i++ {
 					if cardNumBob[i] != cardNumBob[middle] && cardNumBob[i] != twoOfB[j] {
 						twoOfB[j] = cardNumAlice[i]
 						j++
@@ -394,13 +394,13 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 				} else if twoPairOfA[0] == twoPairOfB[0] {
 					a := 0
 					b := 0
-					for i := 0; i < len(cardNumAlice)-1; i++ {
+					for i := 0; i < len(cardNumAlice); i++ {
 						if cardNumAlice[i] != twoPairOfA[0] && cardNumAlice[i] != twoPairOfA[1] {
 							a = cardNumAlice[i]
 							break
 						}
 					}
-					for i := 0; i < len(cardNumAlice)-1; i++ {
+					for i := 0; i < len(cardNumAlice); i++ {
 						if cardNumBob[i] != twoPairOfB[0] && cardNumBob[i] != twoPairOfB[1] {
 							b = cardNumAlice[i]
 							break
@@ -418,13 +418,13 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 		case 9:
 			pairOfA := 0
 			pairOfB := 0
-			for i := 1; i < len(cardNumAlice)-1; i++ {
+			for i := 1; i < len(cardNumAlice); i++ {
 				if cardNumAlice[i] == cardNumAlice[i-1] {
 					pairOfA = cardNumAlice[i]
 					break
 				}
 			}
-			for i := 1; i < len(cardNumBob)-1; i++ {
+			for i := 1; i < len(cardNumBob); i++ {
 				if cardNumBob[i] == cardNumBob[i-1] {
 					pairOfB = cardNumBob[i]
 					break
@@ -437,19 +437,19 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 			} else if pairOfA == pairOfB {
 				var lastThreeA = [3]int{0, 0, 0}
 				var lastThreeB = [3]int{0, 0, 0}
-				for i, j := 0, 0; i < len(cardNumAlice)-1; i++ {
+				for i, j := 0, 0; i < len(cardNumAlice); i++ {
 					if cardNumAlice[i] != pairOfA {
 						lastThreeA[j] = cardNumAlice[i]
 						j++
 					}
 				}
-				for i, j := 0, 0; i < len(cardNumBob)-1; i++ {
+				for i, j := 0, 0; i < len(cardNumBob); i++ {
 					if cardNumBob[i] != pairOfB {
 						lastThreeB[j] = cardNumBob[i]
 						j++
 					}
 				}
-				for i := 0; i < len(lastThreeA)-1; i++ {
+				for i := 0; i < len(lastThreeA); i++ {
 					if lastThreeA[len(lastThreeA)-1-i] == lastThreeB[len(lastThreeA)-1-i] {
 						winner = "平手"
 						continue
