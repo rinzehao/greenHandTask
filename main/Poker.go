@@ -108,6 +108,8 @@ func GetRank(str string) (int, string, []int) {
 		}
 	}
 
+	//uuuuu
+
 	//判断2.四条-或者-葫芦
 	if len(numMap) == 2 {
 		fmt.Println("只有两种点数")
