@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 const (
@@ -31,12 +32,30 @@ func main() {
 	fmt.Scanln(&cardOfAlice)
 	fmt.Println("alice的手牌为:", cardOfAlice)
 	var rankOfAlice, acardSet, cardNumAlice = GetRank(cardOfAlice)
+	if strings.Contains(cardOfAlice, "A") {
+		cardOfAlice2 := strings.Replace(cardOfAlice, "A", "1", -1)
+		var rankOfAlice2, acardSet2, cardNumAlice2 = GetRank(cardOfAlice2)
+		if rankOfAlice2 < rankOfAlice {
+			rankOfAlice = rankOfAlice2
+			acardSet = acardSet2
+			cardNumAlice = cardNumAlice2
+		}
+	}
 	fmt.Println("Alice的手牌等级排名", rankOfAlice)
 	fmt.Println("Alice的", acardSet)
 	fmt.Println("请按照命名规则给bob发牌（5张）")
 	fmt.Scanln(&cardOfBob)
 	fmt.Println("bob的手牌为", cardOfBob)
 	var rankOfBob, bcardSet, cardNumBob = GetRank(cardOfBob)
+	if strings.Contains(cardOfBob, "A") {
+		cardOfBob2 := strings.Replace(cardOfBob, "A", "1", -1)
+		var ranOfBob2, bcardSet2, cardNumBob2 = GetRank(cardOfBob2)
+		if ranOfBob2 < rankOfBob {
+			rankOfBob = ranOfBob2
+			bcardSet = bcardSet2
+			cardNumBob = cardNumBob2
+		}
+	}
 	fmt.Println("Bob的手牌等级排名", rankOfBob)
 	fmt.Println("Bob的", bcardSet)
 	//卡牌比较
@@ -381,7 +400,7 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 		case 8:
 			//五牌的两对中，起脚牌只可能存在于0、2、4，则两对分别一定存在于1、3位
 			var twoPairOfA = [2]int{cardNumAlice[1], cardNumAlice[3]}
-			var twoPairOfB = [2]int{cardNumBob[1], cardNumAlice[3]}
+			var twoPairOfB = [2]int{cardNumBob[1], cardNumBob[3]}
 			if twoPairOfA[1] > twoPairOfB[1] {
 				winner = "ALice"
 			} else if twoPairOfA[1] < twoPairOfB[1] {
@@ -455,21 +474,25 @@ func CompareCard(rankA int, rankB int, cardNumAlice []int, cardNumBob []int) str
 						continue
 					} else if lastThreeA[len(lastThreeA)-1-i] > lastThreeB[len(lastThreeB)-1-i] {
 						winner = "ALice"
+						break
 					} else if lastThreeA[len(lastThreeA)-1-i] < lastThreeB[len(lastThreeA)-1-i] {
 						winner = "Bob"
+						break
 					}
 				}
 			}
 		case 10:
 			size := len(cardNumAlice)
-			for i := 0; i < size-1; i++ {
+			for i := 0; i < size; i++ {
 				if cardNumAlice[size-1-i] == cardNumBob[size-1-i] {
 					winner = "平手"
 					continue
 				} else if cardNumAlice[size-1-i] > cardNumBob[size-1-i] {
 					winner = "Alice"
+					break
 				} else if cardNumAlice[size-1-i] < cardNumBob[size-1-i] {
 					winner = "Bob"
+					break
 				}
 			}
 		}
